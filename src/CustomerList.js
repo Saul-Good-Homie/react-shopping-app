@@ -83,12 +83,22 @@ export default class App extends Component {
 
   getCustomerRow = () => {
     {
-      return this.state.customers.map((cust) => {
+      return this.state.customers.map((cust, index) => {
         return (
           <tr key={cust.id}>
             <td>{cust.id}</td>
             <td>
               <img src={cust.photo} alt="customer" />
+              <div>
+                <button
+                  className="btn btn-secondary btn-sm"
+                  onClick={() => {
+                    this.onChangePicChange(cust, index);
+                  }}
+                >
+                  Change Photo
+                </button>
+              </div>
             </td>
             <td>{cust.name}</td>
             <td>{this.getPhoneToRender(cust.phone)}</td>
@@ -97,5 +107,11 @@ export default class App extends Component {
         );
       });
     }
+  };
+
+  onChangePicChange = (cust, index) => {
+    let custArr = this.state.customers;
+    custArr[index].photo = "https://picsum.photos/id/69/50";
+    this.setState({ customers: custArr });
   };
 }
