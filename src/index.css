@@ -1,3 +1,7 @@
 .highlight {
   background-color: mediumturquoise;
 }
+
+.hand-icon {
+  cursor: pointer;
+}
