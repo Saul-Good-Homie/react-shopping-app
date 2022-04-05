@@ -4,7 +4,7 @@ export default class Product extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      product: this.props.produc,
+      product: this.props.product,
     };
   }
 
