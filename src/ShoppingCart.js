@@ -2,16 +2,21 @@ import React, { Component } from "react";
 import Product from "./Product";
 
 export default class ShoppingCart extends Component {
-  state = {
-    products: [
-      { id: 1, productName: "iPhone", price: 1200, quantity: 0 },
-      { id: 2, productName: "MacBook Pro", price: 2200, quantity: 0 },
-      { id: 3, productName: "MacBook Air", price: 2100, quantity: 0 },
-      { id: 4, productName: "iPad", price: 600, quantity: 0 },
-      { id: 5, productName: "iPod", price: 400, quantity: 0 },
-      { id: 6, productName: "AirPods", price: 200, quantity: 0 },
-    ],
-  };
+  constructor(props) {
+    // calling super class constructor
+    super(props);
+    //initiatlization of the state
+    this.state = {
+      products: [
+        { id: 1, productName: "iPhone", price: 1200, quantity: 0 },
+        { id: 2, productName: "MacBook Pro", price: 2200, quantity: 0 },
+        { id: 3, productName: "MacBook Air", price: 2100, quantity: 0 },
+        { id: 4, productName: "iPad", price: 600, quantity: 0 },
+        { id: 5, productName: "iPod", price: 400, quantity: 0 },
+        { id: 6, productName: "AirPods", price: 200, quantity: 0 },
+      ],
+    };
+  }
 
   render() {
     return (
@@ -34,6 +39,28 @@ export default class ShoppingCart extends Component {
         </div>
       </div>
     );
+  }
+
+  //executes after constructor and render methods
+  componentDidMount() {
+    //fetch data from data source
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    // console.log("component did update - shopping cart");
+    //console.log(prevProps, prevState, this.props, this.state);
+    //if (prevProps != this.props){
+    //make http call
+    //}
+  }
+
+  componentWillUnmount() {
+    // console.log("component will unmount - shopping cart");
+  }
+
+  componentDidCatch(error, info) {
+    // console.log(error, info);
+    localStorage.lastError = `${error} \n ${JSON.stringify(info)}`;
   }
 
   handleIncrement = (product, max) => {
@@ -62,9 +89,11 @@ export default class ShoppingCart extends Component {
     let allProducts = [...this.state.products];
     let index = allProducts.indexOf(product);
 
-    allProducts.splice(index, 1);
-    this.setState({
-      products: allProducts,
-    });
+    if (window.confirm("Are you sure you want to delete?")) {
+      allProducts.splice(index, 1);
+      this.setState({
+        products: allProducts,
+      });
+    }
   };
 }
