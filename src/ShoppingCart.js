@@ -7,20 +7,13 @@ export default class ShoppingCart extends Component {
     super(props);
     //initiatlization of the state
     this.state = {
-      products: [
-        { id: 1, productName: "iPhone", price: 1200, quantity: 0 },
-        { id: 2, productName: "MacBook Pro", price: 2200, quantity: 0 },
-        { id: 3, productName: "MacBook Air", price: 2100, quantity: 0 },
-        { id: 4, productName: "iPad", price: 600, quantity: 0 },
-        { id: 5, productName: "iPod", price: 400, quantity: 0 },
-        { id: 6, productName: "AirPods", price: 200, quantity: 0 },
-      ],
+      products: [],
     };
   }
 
   render() {
     return (
-      <div className="container-fluid">
+      <div>
         <h4>Shopping Cart</h4>
         <div className="row">
           {this.state.products.map((prod) => {
@@ -42,9 +35,16 @@ export default class ShoppingCart extends Component {
   }
 
   //executes after constructor and render methods
-  componentDidMount() {
+  componentDidMount = async () => {
     //fetch data from data source
-  }
+    let response = await fetch("http://localhost:5000/products", {
+      method: "GET",
+    });
+    let prods = await response.json();
+    this.setState({
+      products: prods,
+    });
+  };
 
   componentDidUpdate(prevProps, prevState) {
     // console.log("component did update - shopping cart");
